@@ -35,6 +35,6 @@ export const getMovies = (): Promise<Movie[]> => {
     setTimeout(() => {
       resolve(MOVIE_DATA);
       // reject('Cannot fetch movies!');
-    }, 3000);
+    }, 50);
   })
 }

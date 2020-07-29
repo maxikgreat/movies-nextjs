@@ -1,3 +1,7 @@
 export default function About() {
-  return <h1>About page example</h1>
+  return (
+    <section>
+      <h1>About page example</h1>
+    </section>
+  )
 }
