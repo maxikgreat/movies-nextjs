@@ -3,7 +3,7 @@ import { SideMenu } from '../components/SideMenu';
 import { Carousel } from '../components/Carousel';
 import { MoveList } from '../components/MoveList';
 import { getMovies } from '../actions/index';
-import { Movie } from '../types';
+import { Movie, Image } from '../types';
 
 interface MovieState {
   data: Movie[] | [],
@@ -11,32 +11,21 @@ interface MovieState {
 }
 interface HomeProps {
   movies: Movie[] | [],
+  images: Image[] | [],
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps = async () => {
   const movies = await getMovies();
+  const images = movies.map(movie => ({
+    id: `image-${movie.id}`,
+    url: movie.cover,
+    title: movie.name,
+  }));
 
-  return { props: { movies } }
+  return { props: { movies, images } }
 }
 
-export default function Home({ movies }: HomeProps) {
-  // const [movies, setMovies] = useState<MovieState>({
-  //   data: [],
-  //   error: '',
-  // });
-
-  // useEffect(() => {
-  //   const fetchMovies = async () => {
-  //     try {
-  //       const resMovies = await getMovies();
-  //       setMovies({ ...movies, data: resMovies });
-  //     } catch (error) {
-  //       setMovies({ ...movies, error });
-  //     }
-  //   };
-  //   fetchMovies();
-  // }, []);
-
+export default function Home({ movies, images }: HomeProps) {
   return (
     <section>
       <div className="container">
@@ -45,7 +34,9 @@ export default function Home({ movies }: HomeProps) {
             <SideMenu />
           </div>
           <div className="col-lg-9">
-            <Carousel />
+            <Carousel
+              images={images}
+            />
             <div className="row">
               <MoveList
                 movies={movies}

@@ -6,4 +6,11 @@ export interface Movie {
   rating: number,
   genre: string,
   image: string,
+  cover: string,
 };
+
+export interface Image {
+  id: string,
+  url: string,
+  title: string,
+}
