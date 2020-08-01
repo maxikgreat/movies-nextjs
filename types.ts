@@ -1,3 +1,4 @@
+import { Genres } from './components/MovieCreateForm';
 export interface Movie {
   id: string,
   name: string,
@@ -18,3 +19,12 @@ export interface Image {
   url: string,
   title: string,
 };
+
+export interface MovieForm {
+  name: string,
+  description: string,
+  rating: string,
+  genre: Genres[],
+  image: string,
+  cover: string,
+}

@@ -2,8 +2,6 @@
 import { SideMenu } from '../components/SideMenu';
 import { Carousel } from '../components/Carousel';
 import { MoveList } from '../components/MoveList';
-import { Modal } from '../components/Modal';
-import { MovieCreateForm } from '../components/MovieCreateForm';
 import { getMovies, getCategories } from '../actions/index';
 import { Movie, Image, Category } from '../types';
 
@@ -33,9 +31,6 @@ export default function Home({ movies, images, categories }: HomeProps) {
   return (
     <section>
       <div className="container">
-        <Modal>
-          <MovieCreateForm />
-        </Modal>
         <div className="row">
           <div className="col-lg-3">
             <SideMenu

@@ -1,10 +1,11 @@
 import { ReactNode} from 'react';
 
 interface ModalProps {
-  children: ReactNode
+  children: ReactNode,
+  hasSubmit: boolean,
 }
 
-export const Modal = ({children}: ModalProps) => {
+export const Modal = ({children, hasSubmit}: ModalProps) => {
   let closeButton: HTMLElement | null = null;
 
   const submitHandler = () => {
@@ -23,7 +24,7 @@ export const Modal = ({children}: ModalProps) => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Create modal</h5>
+              <h5 className="modal-title" id="exampleModalLabel">Movie</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -38,11 +39,13 @@ export const Modal = ({children}: ModalProps) => {
                 data-dismiss="modal"
                 ref={el => closeButton = el}
               >Close</button>
-              <button 
+              {hasSubmit &&
+                <button 
                 type="button" 
                 className="btn btn-primary"
                 onClick={submitHandler}
               >Save changes</button>
+              }
             </div>
           </div>
         </div>
