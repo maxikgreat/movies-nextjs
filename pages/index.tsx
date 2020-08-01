@@ -2,36 +2,45 @@
 import { SideMenu } from '../components/SideMenu';
 import { Carousel } from '../components/Carousel';
 import { MoveList } from '../components/MoveList';
-import { getMovies } from '../actions/index';
-import { Movie, Image } from '../types';
+import { Modal } from '../components/Modal';
+import { MovieCreateForm } from '../components/MovieCreateForm';
+import { getMovies, getCategories } from '../actions/index';
+import { Movie, Image, Category } from '../types';
 
 interface MovieState {
   data: Movie[] | [],
   error: string,
-}
+};
 interface HomeProps {
   movies: Movie[] | [],
   images: Image[] | [],
-}
+  categories: Category[] | [],
+};
 
 export const getServerSideProps = async () => {
   const movies = await getMovies();
+  const categories = await getCategories();
   const images = movies.map(movie => ({
     id: `image-${movie.id}`,
     url: movie.cover,
     title: movie.name,
   }));
 
-  return { props: { movies, images } }
+  return { props: { movies, images, categories } };
 }
 
-export default function Home({ movies, images }: HomeProps) {
+export default function Home({ movies, images, categories }: HomeProps) {
   return (
     <section>
       <div className="container">
+        <Modal>
+          <MovieCreateForm />
+        </Modal>
         <div className="row">
           <div className="col-lg-3">
-            <SideMenu />
+            <SideMenu
+              categories={categories}
+            />
           </div>
           <div className="col-lg-9">
             <Carousel

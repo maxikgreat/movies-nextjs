@@ -1,10 +1,19 @@
-export const SideMenu = () => (
+import { Category } from "../types";
+
+interface SideMenuProps {
+  categories: Category[],
+}
+
+export const SideMenu = ({categories}: SideMenuProps) => (
   <>
-    <h1 className="my-4">Shop Name</h1>
-    <div className="list-group">
-      <a href="#" className="list-group-item">Category 1</a>
-      <a href="#" className="list-group-item">Category 2</a>
-      <a href="#" className="list-group-item">Category 3</a>
-    </div>
+    <h1 className="my-4">Movie App</h1>
+    {categories.map(category => (
+      <a
+        key={category.id}
+        id={category.id}
+        href="#" 
+        className="list-group-item"
+      >{category.name}</a>
+    ))}
   </>
 )

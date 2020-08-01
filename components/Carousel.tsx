@@ -19,6 +19,7 @@ export const Carousel = ({images}: CarouselProps) => (
     <div className="carousel-inner" role="listbox">
       {images.map((image, index) => (
         <div 
+          key={image.id}
           className={`carousel-item ${index === 0 ? 'active' : ''}`}
           id={image.id}
         >

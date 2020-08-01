@@ -15,7 +15,7 @@ export const MoveList = ({ movies }: MoveListProps) => {
   }
 
   const renderMovies = () => {
-    return movies.map((movie: Movie): JSX.Element => (
+    return movies.map((movie): JSX.Element => (
       <div className="col-lg-4 col-md-6 mb-4" key={movie.id}>
         <div className="card h-100">
           <Link href="/movie/[id]" as={`/movie/${movie.id}`}>

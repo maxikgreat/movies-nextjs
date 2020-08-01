@@ -1,4 +1,4 @@
-import { Movie } from './../types';
+import { Movie, Category } from './../types';
 
 const MOVIE_DATA: Movie[] = [
   {
@@ -32,6 +32,21 @@ const MOVIE_DATA: Movie[] = [
     cover: 'https://images.unsplash.com/photo-1595689181128-b0092089d5a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
   }	  
 ];
+
+const CATEGORY_DATA: Category[] = [
+  {id: '1', name: 'drama'},
+  {id: '2', name: 'action'},
+  {id: '3', name: 'adventure'},
+  {id: '4', name: 'historical'},
+];
+
+export const getCategories = (): Promise<Category[]> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(CATEGORY_DATA);
+    }, 50);
+  });
+}
 
 export const getMovies = (): Promise<Movie[]> => {
   return new Promise((resolve, reject) => {

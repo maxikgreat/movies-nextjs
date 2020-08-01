@@ -9,8 +9,12 @@ export interface Movie {
   cover: string,
 };
 
+export interface Category {
+  id: string,
+  name: string,
+};
 export interface Image {
   id: string,
   url: string,
   title: string,
-}
+};
