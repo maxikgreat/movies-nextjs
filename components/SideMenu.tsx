@@ -15,7 +15,7 @@ export const SideMenu = ({categories}: SideMenuProps) => {
   const router = useRouter();
 
   const createMovieHandler = async (movie: MovieForm) => {
-    const movies = await createMovie(movie);
+    await createMovie(movie);
     if (modalRef && modalRef.current) {
       modalRef.current.closeHandler();
       router.push('/');

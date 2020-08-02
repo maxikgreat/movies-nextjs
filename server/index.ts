@@ -54,7 +54,18 @@ import moviesData from './data.json';
 
     server.delete('/api/v1/movies/:id', (req, res) => {
       const { id } = req.params;
-      res.json(`Delete movie by ${id}`);
+
+      const filtered = moviesData.filter(movie => movie.id !== id);
+      
+      const pathToFile = path.join(__dirname, './data.json');
+      const serializedData = JSON.stringify(filtered, null, 2);
+
+      fs.writeFile(pathToFile, serializedData, (error => {
+        if (error) {
+          return res.status(422).send(error);
+        }
+        return res.json('Was successfully deleted');
+      }))
     });
 
     server.get('/faq', (req, res) => {

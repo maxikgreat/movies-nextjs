@@ -20,14 +20,18 @@ export const getCategories = (): Promise<Category[]> => {
   });
 }
 
-export const getMovies = (): AxiosPromise<Movie[]> => {
+export const getMovies = (): Promise<Movie[]> => {
   return axios.get(`${baseUrl}/api/v1/movies/`).then(({data}) => data);
 }
 
-export const createMovie = (movieForm: MovieForm) => {
+export const createMovie = (movieForm: MovieForm): Promise<string> => {
   return axios.post(`${baseUrl}/api/v1/movies`, {movieForm}).then(({data}) => data);
 }
 
-export const getMovieById = (id: string): AxiosPromise<Movie> => {
+export const getMovieById = (id: string): Promise<Movie[]> => {
   return axios.get(`${baseUrl}/api/v1/movies/${id}`).then(({data}) => data);
+}
+
+export const deleteMovie = (id: string): Promise<string> => {
+  return axios.delete(`${baseUrl}/api/v1/movies/${id}`).then(({data}) => data);
 }
