@@ -1,5 +1,5 @@
-import { useState, ChangeEvent } from 'react';
-import { MovieForm, Genres } from '../types';
+import { useState, useEffect, ChangeEvent } from 'react';
+import { MovieForm, Genres, Movie } from '../types';
 
 interface FormState {
   name: string,
@@ -11,10 +11,11 @@ interface FormState {
 }
 
 interface MovieCreateFormProps {
-  createMovieHandler: (form: MovieForm) => void,
+  createMovieHandler?: (form: MovieForm) => void,
+  movie?: Movie,
 }
 
-export const MovieCreateForm = ({createMovieHandler}: MovieCreateFormProps) => {
+export const MovieCreateForm = ({createMovieHandler, movie}: MovieCreateFormProps) => {
   const [form, setForm] = useState<FormState>({
     name: '',
     description: '',
@@ -23,6 +24,25 @@ export const MovieCreateForm = ({createMovieHandler}: MovieCreateFormProps) => {
     cover: '',
     genre: [],
   });
+
+  const convertGenres = (genresString: string): Genres[] => {
+    return genresString
+    .split(', ')
+    .map(genre => {
+      return Genres[genre as Genres];
+    })
+    .filter(genre => genre);
+  };
+
+  useEffect(() => {
+    if (movie) {
+      setForm({
+        ...movie,
+        rating: movie.rating.toString(),
+        genre: convertGenres(movie.genre)
+      })
+    }
+  }, []);
 
   const onChangeHandler = (
     {target: {value, name}}: ChangeEvent<HTMLInputElement>
@@ -49,11 +69,13 @@ export const MovieCreateForm = ({createMovieHandler}: MovieCreateFormProps) => {
   }
 
   const createHandler = () => {
-    createMovieHandler({...form});
+    if (createMovieHandler) {
+      createMovieHandler({...form});
+    }
   }
 
   return (
-    <form>
+    <form className="pt-5 pb-5">
       <div className="form-group">
         <label htmlFor="name">Name</label>
         <input 

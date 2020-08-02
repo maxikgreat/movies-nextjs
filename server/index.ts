@@ -44,7 +44,7 @@ import moviesData from './data.json';
       const pathToFile = path.join(__dirname, './data.json');
       const stringifiedData = JSON.stringify(moviesData, null ,2);
 
-      fs.writeFile(pathToFile, stringifiedData, (error) => {
+      fs.writeFile(pathToFile, stringifiedData, error => {
         if (error) {
           return res.status(422).send(error);
         }
@@ -55,17 +55,18 @@ import moviesData from './data.json';
     server.delete('/api/v1/movies/:id', (req, res) => {
       const { id } = req.params;
 
-      const filtered = moviesData.filter(movie => movie.id !== id);
+      const movieIndex = moviesData.findIndex(movie => movie.id === id);
+      moviesData.splice(movieIndex, 1);
       
       const pathToFile = path.join(__dirname, './data.json');
-      const serializedData = JSON.stringify(filtered, null, 2);
+      const stringifiedData = JSON.stringify(moviesData, null, 2);
 
-      fs.writeFile(pathToFile, serializedData, (error => {
+      fs.writeFile(pathToFile, stringifiedData, error => {
         if (error) {
           return res.status(422).send(error);
         }
-        return res.json('Was successfully deleted');
-      }))
+        return res.json('Movie was successfully deleted');
+      });
     });
 
     server.get('/faq', (req, res) => {
