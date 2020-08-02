@@ -4,6 +4,7 @@ import { createMovie } from '../actions';
 import Modal from '../components/Modal';
 import { MovieCreateForm } from '../components/MovieCreateForm';
 import { useRef } from 'react';
+import { useRouter } from 'next/router';
 
 interface SideMenuProps {
   categories: Category[],
@@ -11,12 +12,13 @@ interface SideMenuProps {
 
 export const SideMenu = ({categories}: SideMenuProps) => {
   let modalRef = useRef<Modal>(null);
+  const router = useRouter();
 
   const createMovieHandler = async (movie: MovieForm) => {
     const movies = await createMovie(movie);
-    console.log(movies);
     if (modalRef && modalRef.current) {
       modalRef.current.closeHandler();
+      router.push('/');
     }
   }
 
