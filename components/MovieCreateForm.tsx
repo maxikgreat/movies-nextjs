@@ -1,13 +1,5 @@
 import { useState, ChangeEvent } from 'react';
-import { MovieForm } from '../types';
-
-export enum Genres {
-  drama = 'drama',
-  music = 'music',
-  adventure = 'adventure',
-  historical = 'historical',
-  action = 'action',
-}
+import { MovieForm, Genres } from '../types';
 
 interface FormState {
   name: string,

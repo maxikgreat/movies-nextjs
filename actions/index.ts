@@ -1,4 +1,5 @@
-import { Movie, Category } from './../types';
+import { Movie, Category, MovieForm } from './../types';
+import { match } from 'assert';
 
 const MOVIE_DATA: Movie[] = [
   {
@@ -57,9 +58,19 @@ export const getMovies = (): Promise<Movie[]> => {
   })
 }
 
-export const createMovie = (movie: Movie) => {
+export const createMovie = (movieForm: MovieForm) => {
   return new Promise((resolve, reject) => {
-    MOVIE_DATA.push(movie);
+
+    const newMovie: Movie = {
+      ...movieForm, 
+      rating: parseInt(movieForm.rating),
+      genre: movieForm.genre.join(' '),
+      id: Math.random().toString(36).substr(2,7),
+      releaseYear: 3000,
+    }
+
+    MOVIE_DATA.push(newMovie);
+
     setTimeout(() => {
       resolve(MOVIE_DATA);
     }, 50);

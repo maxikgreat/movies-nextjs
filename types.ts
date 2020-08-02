@@ -1,4 +1,3 @@
-import { Genres } from './components/MovieCreateForm';
 export interface Movie {
   id: string,
   name: string,
@@ -27,4 +26,12 @@ export interface MovieForm {
   genre: Genres[],
   image: string,
   cover: string,
+}
+
+export enum Genres {
+  drama = 'drama',
+  music = 'music',
+  adventure = 'adventure',
+  historical = 'historical',
+  action = 'action',
 }
