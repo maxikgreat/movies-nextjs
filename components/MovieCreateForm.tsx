@@ -2,6 +2,8 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import { MovieForm, Genres, Movie } from '../types';
 
 interface FormState {
+  id: string,
+  releaseYear: number,
   name: string,
   description: string,
   rating: string,
@@ -11,12 +13,14 @@ interface FormState {
 }
 
 interface MovieCreateFormProps {
-  createMovieHandler?: (form: MovieForm) => void,
+  createMovieHandler: (form: Movie) => void,
   movie?: Movie,
 }
 
 export const MovieCreateForm = ({createMovieHandler, movie}: MovieCreateFormProps) => {
   const [form, setForm] = useState<FormState>({
+    id: '0',
+    releaseYear: 0,
     name: '',
     description: '',
     rating: '',
@@ -68,7 +72,7 @@ export const MovieCreateForm = ({createMovieHandler, movie}: MovieCreateFormProp
     })
   }
 
-  const createHandler = () => {
+  const submitHandler = () => {
     if (createMovieHandler) {
       createMovieHandler({...form});
     }
@@ -151,11 +155,11 @@ export const MovieCreateForm = ({createMovieHandler, movie}: MovieCreateFormProp
           <option>historical</option>
           <option>action</option>
         </select>
-        <button 
-          type="button" 
-          className="btn btn-primary mt-3"
-          onClick={createHandler}
-        >Create</button>
+          <button 
+            type="button" 
+            className="btn btn-primary mt-3"
+            onClick={submitHandler}
+          >{movie ? 'Edit' : 'Create'}</button>
       </div>
     </form>
   )
