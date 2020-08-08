@@ -31,10 +31,12 @@ import moviesData from './data.json';
     server.post('/api/v1/movies', (req, res) => {
       const { movieForm } = req.body;
 
+      console.log(movieForm);
+
       const movie = {
         ...movieForm, 
         rating: parseInt(movieForm.rating),
-        genre: movieForm.genre.join(', '),
+        genre: Array.isArray(movieForm.genre) ? movieForm.genre.join(', ') : movieForm.genre,
         id: Math.random().toString(36).substr(2,7),
         releaseYear: 3000,
       };
@@ -66,6 +68,25 @@ import moviesData from './data.json';
           return res.status(422).send(error);
         }
         return res.json('Movie was successfully deleted');
+      });
+    });
+
+    server.patch('/api/v1/movies/:id', (req, res) => {
+      const { id } = req.params;
+      const { movie } = req.body;
+
+      const movieIndex = moviesData.findIndex(movie => movie.id === id);
+
+      moviesData[movieIndex] = movie;
+      
+      const pathToFile = path.join(__dirname, './data.json');
+      const stringifiedData = JSON.stringify(moviesData, null, 2);
+
+      fs.writeFile(pathToFile, stringifiedData, error => {
+        if (error) {
+          return res.status(422).send(error);
+        }
+        return res.json('Movie was successfully updated');
       });
     });
 

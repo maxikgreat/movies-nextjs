@@ -38,6 +38,10 @@ export const MovieCreateForm = ({createMovieHandler, movie}: MovieCreateFormProp
     .filter(genre => genre);
   };
 
+  const convertGenresDesc = (genres: Genres[]): string => {
+    return genres.join(', ');
+  };
+
   useEffect(() => {
     if (movie) {
       setForm({
@@ -74,7 +78,11 @@ export const MovieCreateForm = ({createMovieHandler, movie}: MovieCreateFormProp
 
   const submitHandler = () => {
     if (createMovieHandler) {
-      createMovieHandler({...form});
+      createMovieHandler({
+        ...form, 
+        rating: parseInt(form.rating),
+        genre: convertGenresDesc(form.genre),
+      });
     }
   }
 

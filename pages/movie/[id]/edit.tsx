@@ -3,6 +3,7 @@ import { MovieCreateForm } from '../../../components/MovieCreateForm';
 import { MovieNextPageContext } from '../[id]';
 import { getMovieById, updateMovie } from '../../../actions';
 import { Movie } from '../../../types';
+import Router from 'next/router';
 
 interface EditMovieProps {
   movie: Movie
@@ -18,7 +19,7 @@ export default class EditMovie extends Component<EditMovieProps> {
 
   editMovieHandler = async (movie: Movie) => {
     await updateMovie(movie);
-
+    Router.push('/movie/[id]', `/movie/${movie.id}`);
   }
 
   render() {
