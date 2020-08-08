@@ -31,8 +31,6 @@ import moviesData from './data.json';
     server.post('/api/v1/movies', (req, res) => {
       const { movieForm } = req.body;
 
-      console.log(movieForm);
-
       const movie = {
         ...movieForm, 
         rating: parseInt(movieForm.rating),

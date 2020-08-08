@@ -35,3 +35,10 @@ export enum Genres {
   historical = 'historical',
   action = 'action',
 }
+
+export interface Post {
+  userId: number,
+  id: number,
+  title: string,
+  body: string,
+}

@@ -1,4 +1,4 @@
-import { Movie, Category } from './../types';
+import { Movie, Category, Post } from './../types';
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:3000';
@@ -39,4 +39,8 @@ export const deleteMovie = (id: string): Promise<string> => {
 
 export const updateMovie = (movie: Movie): Promise<string> => {
   return axios.patch(`${baseUrl}/api/v1/movies/${movie.id}`, {movie}).then(({data}) => data);
+}
+
+export const getPosts = (): Promise<Post[]> => {
+  return axios.get(`${baseUrl}/api/v1/posts`).then(({ data }) => data);
 }
