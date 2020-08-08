@@ -1,5 +1,17 @@
 @import './_pages/index';
 
+body {
+  min-height: 100vh;
+  position: relative;
+}
+
 section {
   padding-top: 80px;
+  padding-bottom: 150px; 
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

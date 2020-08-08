@@ -1,6 +1,6 @@
 import { getMovieById, deleteMovie } from '../../../actions/index';
 import { NextPageContext } from 'next';
-import { Movie as MovieType } from '../../../types';
+import { Movie as MovieType, Category } from '../../../types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -20,6 +20,7 @@ export const getServerSideProps = async ({ query }: MovieNextPageContext) => {
 
 export default function Movie({ movie }: MovieProps) {
   const router = useRouter();
+
   const deleteHandler = async () => {
     await deleteMovie(movie.id);
     router.push('/');

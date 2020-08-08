@@ -1,4 +1,4 @@
-// import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { SideMenu } from '../components/SideMenu';
 import { Carousel } from '../components/Carousel';
 import { MoveList } from '../components/MoveList';
@@ -28,22 +28,39 @@ export const getServerSideProps = async () => {
 }
 
 export default function Home({ movies, images, categories }: HomeProps) {
+
+  const [filter, setFilter] = useState<string>('all');
+
+  const changeCategory = ({ name }: Category) => {
+    setFilter(name);
+  }
+
+  const filterMovies = (movies: Movie[]) => {
+    if (filter === 'all') {
+      return movies;
+    }
+    return movies.filter(movie => movie.genre && movie.genre.includes(filter));
+  }
+
   return (
     <section>
       <div className="container">
         <div className="row">
           <div className="col-lg-3">
             <SideMenu
+              activeCategory={filter}
+              changeCategory={changeCategory}
               categories={categories}
             />
           </div>
           <div className="col-lg-9">
+            <h1>Category: {filter} movies</h1>
             <Carousel
               images={images}
             />
             <div className="row">
               <MoveList
-                movies={movies}
+                movies={filterMovies(movies)}
               />
             </div>
           </div>

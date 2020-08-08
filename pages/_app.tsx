@@ -1,10 +1,10 @@
 import type { AppProps, AppContext } from 'next/app';
 // import App from 'next/app';
-import '../styles/main.scss';
 import Head from 'next/head';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 // import { getMovies } from '../actions/index';
+import '../styles/main.scss';
 
 export default function MovieApp({ Component, pageProps }: AppProps) {
   return (
